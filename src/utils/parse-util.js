@@ -7,13 +7,9 @@
  * Parses a deliminated string into tokens
  * @param {string} input string to be parsed
  * @returns {string[]} returns an array of string tokens
- * @throws {Error} Maximum 2 numbers accepted, if exceeded will throw error
  */
 const parseIntoTokens = (input) => {
     const tokens = input.split(',');
-    if(tokens.length > 2) {
-        throw new Error("Cannot exceed the maximum of 2 numbers");
-    }
     return tokens;
 };
 
@@ -30,8 +26,8 @@ const isDigit = (c) => {
 };
 
 /**
- * Converts a string token into a number
- * Valid numbers are negative and positive integers
+ * Converts a string token into a number <br/>
+ * Valid numbers are negative and positive integers <br/>
  * Invalid numbers such as empty string, floats, scientific notation, hexadeximal, or containing non-digit characters are converted to 0
  * @param {string} token token string to be converted to a number
  * @returns {number}

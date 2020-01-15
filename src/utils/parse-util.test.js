@@ -11,7 +11,7 @@ describe('parseIntoTokens', () => {
     ];
     
     for(const [input, output] of PARSE_INTO_TOKENS_TEST_CASES) {
-        test(`parseIntoTokens - input: ${input}, expected output: ${output}`, () => {
+        test(`parseIntoTokens - input: ${input} ; expected output: ${output}`, () => {
             expect(parseIntoTokens(input)).toEqual(output);;
         });
     }
@@ -31,7 +31,7 @@ describe('convertToNum', () => {
     ];
     
     for(const [input, output] of CONVERT_TO_NUM_TEST_CASES) {
-        test(`convertToNum - input: ${input}, expected output: ${output}`, () => {
+        test(`convertToNum - input: ${input} ; expected output: ${output}`, () => {
             expect(convertToNum(input)).toBe(output);;
         });
     }
@@ -39,12 +39,8 @@ describe('convertToNum', () => {
 
 
 describe('parseStringToNums', () => {
-    test('parseStringToNums - parse "1,2" into an array of numbers', () => {
-        expect(parseStringToNums('1,2')).toEqual([1,2]);
-    });
-
-    test('parseStringToNums - throw exception if input exceeds max of 2 numbers', () => {
-        expect(() => {parseStringToNums('1,2,3')}).toThrow(Error);
+    test('parseStringToNums - parse "1,2,3,4,5" into an array of numbers', () => {
+        expect(parseStringToNums('1,2,3,4,5')).toEqual([1,2,3,4,5]);
     });
 });
 
