@@ -39,10 +39,11 @@ const isDigit = (c) => {
 
 /**
  * Converts a string token into a number <br/>
- * Valid numbers are negative and positive integers <br/>
+ * Valid numbers are positive integers <br/>
  * Invalid numbers such as empty string, floats, scientific notation, hexadeximal, or containing non-digit characters are converted to 0
  * @param {string} token token string to be converted to a number
  * @returns {number}
+ * @throws {Error} Negative numbers will throw an error
  */
 const convertToNum = (token) => {
     // if string is empty, convert to 0
@@ -50,11 +51,11 @@ const convertToNum = (token) => {
         return 0;
     }
     // if first char is neither a minus sign or digit, it's invalid and convert to 0
-    if(token[0] !== '-' && !isDigit(token[0])) {
-        return 0;
+    if(token[0] === '-') {
+        throw new Error("Negative numbers are not allowed");
     }
     // verify the remaining chars are digits
-    for(let i = 1; i < token.length; i++) {
+    for(let i = 0; i < token.length; i++) {
         if(!isDigit(token[i])) {
             return 0;
         }

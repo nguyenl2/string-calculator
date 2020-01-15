@@ -23,7 +23,6 @@ describe('convertToNum', () => {
     const CONVERT_TO_NUM_TEST_CASES = [
         ['20', 20],
         ['5000', 5000],
-        ['-3', -3],
         ['tytyt', 0],
         ['1e5', 0],
         ['3.14', 0],
@@ -37,6 +36,10 @@ describe('convertToNum', () => {
             expect(convertToNum(input)).toBe(output);;
         });
     }
+
+    test('convertToNum - negative number input should throw error', () => {
+        expect(() => {convertToNum('-1')}).toThrow(Error);
+    });
 });
 
 
