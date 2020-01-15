@@ -7,7 +7,9 @@ describe('parseIntoTokens', () => {
         ['', ['']],
         [',', ['','']],
         ['1,', ['1','']],
-        ['1,tytyt', ['1','tytyt']]
+        ['1,tytyt', ['1','tytyt']],
+        ['1\n1', ['1','1']],
+        ['1\n2,3', ['1','2','3']]
     ];
     
     for(const [input, output] of PARSE_INTO_TOKENS_TEST_CASES) {
@@ -41,6 +43,9 @@ describe('convertToNum', () => {
 describe('parseStringToNums', () => {
     test('parseStringToNums - parse "1,2,3,4,5" into an array of numbers', () => {
         expect(parseStringToNums('1,2,3,4,5')).toEqual([1,2,3,4,5]);
+    });
+    test('parseStringToNums - parse "1\n2\n3\n4\n5" into an array of numbers', () => {
+        expect(parseStringToNums('1\n2\n3\n4\n5')).toEqual([1,2,3,4,5]);
     });
 });
 

@@ -25,7 +25,7 @@ function App() {
   return (
     <div className='app'>
       <form onSubmit={ handleSubmit }>
-        <input value={ input } onChange={ handleInputChange }></input>
+        <textarea value={ input } onChange={ handleInputChange }></textarea>
         <button type='submit'>Calculate</button>
         <div> Output: { error ? error : output}
         </div>

@@ -1,15 +1,27 @@
-/**
- * 
- * @module parse-util 
- */
+/**  @module parse-util  */
 
 /**
- * Parses a deliminated string into tokens
+ * @constant {string[]}
+ * @default
+ */
+ const DELIMITERS = [',', '\n'];
+
+/**
+ * Parses a deliminated string into tokens <br/>
+ * Supported delimiters are enumerated in {@link module:parse-util~DELIMITERS|DELIMITERS}
  * @param {string} input string to be parsed
  * @returns {string[]} returns an array of string tokens
  */
 const parseIntoTokens = (input) => {
-    const tokens = input.split(',');
+    let tokens = [input];
+    for(const delimiter of DELIMITERS) {
+        const newTokens = [];
+        for(const token of tokens) {
+            const parts = token.split(delimiter);
+            newTokens.push(...parts);
+        }
+        tokens = newTokens;
+    }
     return tokens;
 };
 
