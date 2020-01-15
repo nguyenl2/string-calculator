@@ -1,6 +1,6 @@
 /**
  * @module math-util
- *  */
+ */
 
 /**
  * Calculates the sum of an array of numbers

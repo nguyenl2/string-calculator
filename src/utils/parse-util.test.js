@@ -22,7 +22,8 @@ describe('parseIntoTokens', () => {
 describe('convertToNum', () => {
     const CONVERT_TO_NUM_TEST_CASES = [
         ['20', 20],
-        ['5000', 5000],
+        ['1000', 1000],
+        ['1001', 0],
         ['tytyt', 0],
         ['1e5', 0],
         ['3.14', 0],

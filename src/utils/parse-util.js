@@ -40,7 +40,7 @@ const isDigit = (c) => {
 /**
  * Converts a string token into a number <br/>
  * Valid numbers are positive integers <br/>
- * Invalid numbers such as empty string, floats, scientific notation, hexadeximal, or containing non-digit characters are converted to 0
+ * Invalid numbers such as numbers greater than 1000, empty string, floats, scientific notation, hexadeximal, or containing non-digit characters are converted to 0
  * @param {string} token token string to be converted to a number
  * @returns {number}
  * @throws {Error} Negative numbers will throw an error
@@ -60,7 +60,7 @@ const convertToNum = (token) => {
             return 0;
         }
     }
-    return Number(token);
+    return Number(token) <= 1000 ? Number(token) : 0;
 };
 
 /**
