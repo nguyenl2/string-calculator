@@ -54,83 +54,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~DELIMITERS"><span class="type-signature">(inner, constant) </span>DELIMITERS<span class="type-signature"> :Array.&lt;string></span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;string></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li class="object-value"><pre class="prettyprint"><code>[",","\n"]</code></pre></li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -244,7 +167,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line48">line 48</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -428,7 +351,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line33">line 33</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -482,7 +405,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
 
     
-    <h4 class="name" id="~parseIntoTokens"><span class="type-signature">(inner) </span>parseIntoTokens<span class="signature">(input)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    <h4 class="name" id="~parseCustomDelimiter"><span class="type-signature">(inner) </span>parseCustomDelimiter<span class="signature">(input)</span><span class="type-signature"> &rarr; {<a href="module-parse-util.html#~parsedCustomDelim">module:parse-util~parsedCustomDelim</a>}</span></h4>
     
 
     
@@ -490,8 +413,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
 
 
 <div class="description">
-    Parses a deliminated string into tokens <br/>
-Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITERS">DELIMITERS</a>
+    Takes a custom string in the format //{delimiter}\n{numbers} and parses out the delimiter and number string separately
 </div>
 
 
@@ -543,7 +465,7 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
 
             
 
-            <td class="description last">string to be parsed</td>
+            <td class="description last">custom string</td>
         </tr>
 
     
@@ -584,7 +506,221 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line15">line 15</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    { delimiter, numberString }
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-parse-util.html#~parsedCustomDelim">module:parse-util~parsedCustomDelim</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~parseIntoTokens"><span class="type-signature">(inner) </span>parseIntoTokens<span class="signature">(input, delimiters<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Parses a deliminated string into tokens <br/>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">string to be parsed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delimiters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    [',','\n']
+                
+                </td>
+            
+
+            <td class="description last">a set of delimiters used to split the string</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -650,7 +786,13 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
 
 
 <div class="description">
-    Takes a deliminated input string and parses it into an array of numbers
+    Takes a string and parses it into an array of numbers <br/>
+Valid inputs include <br/>
+<ul>
+<li> comma and newline deliminated numbers </li> 
+<li> custom string in the format //{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+</ul>
+If a custom string is used, the default delimiters (, and \n) will not be used to split the string
 </div>
 
 
@@ -702,7 +844,7 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
 
             
 
-            <td class="description last"></td>
+            <td class="description last">input string</td>
         </tr>
 
     
@@ -743,7 +885,7 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line71">line 71</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line90">line 90</a>
     </li></ul></dd>
     
 
@@ -771,6 +913,10 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    array of parsed numbers
+</div>
+
 
 
 <dl>
@@ -795,6 +941,153 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
     
 
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="~parsedCustomDelim">parsedCustomDelim</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>delimiter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">delimiter use to split number string</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numberString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number string</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+    
 
     
 </article>
@@ -813,7 +1106,7 @@ Supported delimiters are enumerated in <a href="module-parse-util.html#~DELIMITE
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Jan 15 2020 17:19:45 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 16 2020 11:21:33 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

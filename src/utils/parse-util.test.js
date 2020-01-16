@@ -51,6 +51,20 @@ describe('parseStringToNums', () => {
     test('parseStringToNums - parse "1\n2\n3\n4\n5" into an array of numbers', () => {
         expect(parseStringToNums('1\n2\n3\n4\n5')).toEqual([1,2,3,4,5]);
     });
+    describe('single character custom delimiter', () => {
+        test('parseStringToNums - parse "//#\n2#5" into an array of numbers', () => {
+            expect(parseStringToNums('//#\n2#5')).toEqual([2,5]);
+        });
+        test('parseStringToNums - parse "//,\n1*2*3" into 0', () => {
+            expect(parseStringToNums('//,\n1*2*3')).toEqual([0]);
+        });
+        test('parseStringToNums - parse "//\n\n1\n2\n3" into an array of numbers', () => {
+            expect(parseStringToNums('//\n\n1\n2\n3')).toEqual([1,2,3]);
+        });
+        test('parseStringToNums - parse "//**\n1**2" like a regular non-custom string', () => {
+            expect(parseStringToNums('//**\n1**2')).toEqual([0,0]);
+        });
+    });
 });
 
 
