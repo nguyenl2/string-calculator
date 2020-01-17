@@ -50,10 +50,11 @@ const convertToNum = (token, allowNeg = false, upperBound = 1000) => {
     if(token === '') {
         return 0;
     }
-    // if negatives are not allowed, throw error
+    // if negatives are not allowed, and num is negative, throw error
     if(!allowNeg && token[0] === '-') {
         throw new Error('Negative numbers are not allowed');
     }
+    // if negatives are allowed, check first char for '-'
     if(allowNeg && token[0] !== '-' && !isDigit(token[0])) {
         return 0;
     }
@@ -63,7 +64,7 @@ const convertToNum = (token, allowNeg = false, upperBound = 1000) => {
             return 0;
         }
     }
-    // convert numbers greater than 1000 to 0
+    // convert numbers greater than upper bound to 0
     return Number(token) <= upperBound ? Number(token) : 0;
 };
 
