@@ -3,12 +3,22 @@
  */
 
 /**
- * Calculates the sum of an array of numbers
+ * Calculates the sum of an array of numbers and displays the formula used to calculate the result
  * @param {number[]} nums 
- * @returns {number} sum
+ * @returns {string} sum formula
  */
 const calculateSum = (nums) => {
     return nums.reduce((sum, num) => sum + num, 0);
 };
 
-export { calculateSum };
+/**
+ * Generates the formula used to calculate the sum of an array of numbers
+ * @param {*} nums nums array
+ * @returns {string} formula
+ */
+const generateFormula = (nums) => {
+    let formula = nums.map((num) => `(${num})`).join(' + ');
+    return formula + ' = ' + calculateSum(nums);
+};
+
+export { calculateSum, generateFormula };

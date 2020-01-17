@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { parseStringToNums } from './utils/parse-util';
-import { calculateSum } from './utils/math-util';
+import { generateFormula } from './utils/math-util';
 
 function App() {
   const [input, setInput] = React.useState('');
@@ -16,7 +16,7 @@ function App() {
       setError(e.message);
       return;
     }
-    setOutput(calculateSum(nums));
+    setOutput(generateFormula(nums));
     setError(null);
   };
   const handleInputChange = (e) => {
