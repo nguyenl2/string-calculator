@@ -4,7 +4,7 @@
 
 /**
  * Calculates the sum of an array of numbers and displays the formula used to calculate the result
- * @param {number[]} nums 
+ * @param {number[]} nums nums array
  * @returns {string} sum formula
  */
 const calculateSum = (nums) => {
@@ -13,7 +13,7 @@ const calculateSum = (nums) => {
 
 /**
  * Generates the formula used to calculate the sum of an array of numbers
- * @param {*} nums nums array
+ * @param {number[]} nums nums array
  * @returns {string} formula
  */
 const generateFormula = (nums) => {

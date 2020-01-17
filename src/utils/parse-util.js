@@ -71,7 +71,7 @@ const convertToNum = (token, allowNeg = false, upperBound = 1000) => {
 
 /**
  * @typedef {Object} parsedCustomDelims
- * @property {string[]} delimiters delimiters use to split number string
+ * @property {string[]} delimiters delimiters used to split number string
  * @property {string} numberString number string
  */
 
