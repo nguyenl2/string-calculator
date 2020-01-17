@@ -24,7 +24,13 @@ function App() {
   };
   return (
     <div className='app'>
-      <form onSubmit={ handleSubmit }>
+      <header>
+        <div className='header-title'>
+          <h1>String Calculator</h1>
+          <h2>+</h2>
+        </div>
+      </header>
+      <form className='calculator' onSubmit={ handleSubmit }>
         <textarea value={ input } onChange={ handleInputChange }></textarea>
         <button type='submit'>Calculate</button>
         <div> Output: { error ? error : output}
