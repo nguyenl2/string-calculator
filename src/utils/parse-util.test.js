@@ -75,6 +75,9 @@ describe('parseStringToNums', () => {
         test('parseStringToNums - parse "//[[]]\n11[]22[]33" using inner brackets', () => {
             expect(parseStringToNums('//[[]]\n11[]22[]33')).toEqual([11,22,33]);
         });
+        test('parseStringToNums - parse "//[\n]\n11\n22\n33" into an array of numbers', () => {
+            expect(parseStringToNums('//[\n]\n11\n22\n33')).toEqual([11,22,33]);
+        });
         test('parseStringToNums - parse "//[]\n123" where an empty string delimiter is ignored', () => {
             expect(parseStringToNums('//[]\n123')).toEqual([123]);
         });
@@ -82,7 +85,29 @@ describe('parseStringToNums', () => {
             expect(parseStringToNums('//[][\n123')).toEqual([0,123]);
         });
     });
-
+    describe('multiple custom delimiters', () => {
+        test('parseStringToNums - parse "//[*][!!][r9r]\n11r9r22*hh*33!!44" into an array of numbers', () => {
+            expect(parseStringToNums('//[*][!!][r9r]\n11r9r22*hh*33!!44')).toEqual([11,22,0,33,44]);
+        });
+        test('parseStringToNums - parse "//[[][]]\n1[2]3" (using delimiters [ and ] ) into an array of numbers', () => {
+            expect(parseStringToNums('//[[][]]\n1[2]3')).toEqual([1,2,3]);
+        });
+        test('parseStringToNums - parse "//[[[][]]]\n1[[2]]3" (using delimiters [[ and ]] ) into an array of numbers', () => {
+            expect(parseStringToNums('//[[[][]]]\n1[[2]]3')).toEqual([1,2,3]);
+        });
+        test('parseStringToNums - parse "//[*][\n]\n1*2\n3" into an array of numbers', () => {
+            expect(parseStringToNums('//[*][\n]\n1*2\n3')).toEqual([1,2,3]);
+        });
+        test('parseStringToNums - parse "//[]*[]\n1]*[2]*[3" (using delimiter ]*[ )into an array of numbers', () => {
+            expect(parseStringToNums('//[]*[]\n1]*[2]*[3')).toEqual([1,2,3]);
+        });
+        test('parseStringToNums - parse "//[][][]\n123" (three empty string delimiters) where each delimiter is ignored', () => {
+            expect(parseStringToNums('//[][][]\n123')).toEqual([123]);
+        });
+        test('parseStringToNums - parse "//[][][][\n123" (invalid brackets) like a regular non-custom string', () => {
+            expect(parseStringToNums('//[][][][\n123')).toEqual([0,123]);
+        });
+    });
 });
 
 
