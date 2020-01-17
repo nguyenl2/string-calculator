@@ -40,32 +40,37 @@ const isDigit = (c) => {
  * Valid numbers are positive integers <br/>
  * Invalid numbers such as numbers greater than 1000, empty string, floats, scientific notation, hexadeximal, or containing non-digit characters are converted to 0
  * @param {string} token token string to be converted to a number
+ * @param {boolean} [allowNeg=false] are negatives allowed?
+ * @param {number} [upperBound=1000] upperBound value, if exceeded converts number to 0
  * @returns {number}
  * @throws {Error} Negative numbers will throw an error
  */
-const convertToNum = (token) => {
+const convertToNum = (token, allowNeg = false, upperBound = 1000) => {
     // if string is empty, convert to 0
     if(token === '') {
         return 0;
     }
-    // if negative, throw error
-    if(token[0] === '-') {
+    // if negatives are not allowed, throw error
+    if(!allowNeg && token[0] === '-') {
         throw new Error('Negative numbers are not allowed');
     }
+    if(allowNeg && token[0] !== '-' && !isDigit(token[0])) {
+        return 0;
+    }
     // verify the remaining chars are digits
-    for(let i = 0; i < token.length; i++) {
+    for(let i = 1; i < token.length; i++) {
         if(!isDigit(token[i])) {
             return 0;
         }
     }
     // convert numbers greater than 1000 to 0
-    return Number(token) <= 1000 ? Number(token) : 0;
+    return Number(token) <= upperBound ? Number(token) : 0;
 };
 
 
 /**
  * @typedef {Object} parsedCustomDelims
- * @property {string[]} delimiters delimiter use to split number string
+ * @property {string[]} delimiters delimiters use to split number string
  * @property {string} numberString number string
  */
 
@@ -134,23 +139,26 @@ const parseCustomDelimiters = (input) => {
  *  </ul>
  * </li>
  * </ul>
- * If a custom string is used, the default delimiters (, and \n) will not be used to split the string <br/>
+ * If a custom string is used, the default delimiters ( , and \n or alternate delimiter) will not be used to split the string <br/>
  * @param {string} input input string
+ * @param {string} [altDelimiter='\n'] alternative delimiter in addition to the comma
+ * @param {boolean} [allowNeg=false] allow negatives
+ * @param {number} [upperBound=1000] upper bound number limit
  * @returns {number[]} array of parsed numbers
  */
-const parseStringToNums = (input) => {
+const parseStringToNums = (input, altDelimiter = '\n', allowNeg = false, upperBound = 1000) => {
     let tokens;
     if(input.startsWith('//')) {
         try {
             const { delimiters, numberString } = parseCustomDelimiters(input);
             tokens = parseIntoTokens(numberString, delimiters);
         } catch(e) {
-            tokens = parseIntoTokens(input);
+            tokens = parseIntoTokens(input, [',', altDelimiter]);
         }
     } else {
-        tokens = parseIntoTokens(input);
+        tokens = parseIntoTokens(input, [',', altDelimiter]);
     }
-    return tokens.map((token) => convertToNum(token));
+    return tokens.map((token) => convertToNum(token, allowNeg, upperBound));
 };
 
 export { parseIntoTokens, convertToNum, parseStringToNums };

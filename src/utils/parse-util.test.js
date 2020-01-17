@@ -39,7 +39,15 @@ describe('convertToNum', () => {
     }
 
     test('convertToNum - negative number input should throw error', () => {
-        expect(() => {convertToNum('-1')}).toThrow(Error);
+        expect(() => {convertToNum('-1', false)}).toThrow(Error);
+    });
+
+    test('convertToNum - if negatives are allowed, should convert number', () => {
+        expect(convertToNum('-1', true)).toBe(-1);
+    });
+
+    test('convertToNum - upper bound 100, should convert 101 to 0', () => {
+        expect(convertToNum('101', false, 100)).toBe(0);
     });
 });
 
@@ -53,9 +61,13 @@ describe('parseStringToNums', () => {
         ];
         for(const [input, output] of NON_CUSTOM_STR_TEST_CASES) {
             test(`parseStringToNums - input: ${input} ; expected output: ${output}`, () => {
-                expect(parseStringToNums(input)).toEqual(output);;
+                expect(parseStringToNums(input)).toEqual(output);
             });
         }
+
+        test('parseStringToNums - alternative delimiter *', () => {
+            expect(parseStringToNums('1,2*3', '*')).toEqual([1,2,3]);
+        });
     });
     describe('single character custom deliminated string', () => {
         const SINGLE_CHAR_CUSTOM_STR_TEST_CASES = [

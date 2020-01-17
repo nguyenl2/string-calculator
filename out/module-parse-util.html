@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id="~convertToNum"><span class="type-signature">(inner) </span>convertToNum<span class="signature">(token)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="~convertToNum"><span class="type-signature">(inner) </span>convertToNum<span class="signature">(token, allowNeg<span class="signature-attributes">opt</span>, upperBound<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -98,7 +98,11 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -123,10 +127,100 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">token string to be converted to a number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>allowNeg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">are negatives allowed?</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>upperBound</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last">upperBound value, if exceeded converts number to 0</td>
         </tr>
 
     
@@ -167,7 +261,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line46">line 46</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -517,7 +611,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line89">line 89</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -819,7 +913,7 @@ If a given delimiter is an empty string, it will be ignored
     
 
     
-    <h4 class="name" id="~parseStringToNums"><span class="type-signature">(inner) </span>parseStringToNums<span class="signature">(input)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
+    <h4 class="name" id="~parseStringToNums"><span class="type-signature">(inner) </span>parseStringToNums<span class="signature">(input, altDelimiter<span class="signature-attributes">opt</span>, allowNeg<span class="signature-attributes">opt</span>, upperBound<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
     
 
     
@@ -839,7 +933,7 @@ Valid inputs include <br/>
  </ul>
 </li>
 </ul>
-If a custom string is used, the default delimiters (, and \n) will not be used to split the string <br/>
+If a custom string is used, the default delimiters ( , and \n or alternate delimiter) will not be used to split the string <br/>
 </div>
 
 
@@ -863,7 +957,11 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -888,10 +986,139 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">input string</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>altDelimiter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    '\n'
+                
+                </td>
+            
+
+            <td class="description last">alternative delimiter in addition to the comma</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>allowNeg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">allow negatives</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>upperBound</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last">upper bound number limit</td>
         </tr>
 
     
@@ -932,7 +1159,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line141">line 141</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -1055,7 +1282,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
 
             
 
-            <td class="description last">delimiter use to split number string</td>
+            <td class="description last">delimiters use to split number string</td>
         </tr>
 
     
@@ -1117,7 +1344,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line66">line 66</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -1153,7 +1380,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 16 2020 23:27:29 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Jan 17 2020 01:07:30 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
