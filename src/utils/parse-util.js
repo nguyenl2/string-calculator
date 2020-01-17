@@ -72,14 +72,14 @@ const convertToNum = (token) => {
 /**
  * Takes a custom string in the following formats
  * <ul>
- *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+ *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character (and non-empty) and {numbers} is a number string </li>
  *      <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string <br/>
  *          If the brackets are malformed (like [][), the entire input will be parsed like a non-custom string <br/>
  *          If the delimiter is an empty string, it will be ignored and the number string will not be split <br/>
  *      </li>
  *      <li>//[{delimiter1}][{delimiter2}]...\n{numbers} where {delimiter#} can have multiple characters and {numbers} is a number string <br/>
  *          If the brackets are malformed (like [][), the entire input will be parsed like a non-custom string <br/>
- *          If a delimiter is an empty string, it will be ignored and the number string will not be split <br/>
+ *          If a delimiter is an empty string, it will be ignored and not used <br/>
  *      </li>
  * </ul>
  * @param {string} input custom string
@@ -128,7 +128,7 @@ const parseCustomDelimiters = (input) => {
  * <li> comma and newline deliminated numbers </li> 
  * <li> custom string in the formats 
  *  <ul>
- *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+ *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character (and non-empty) and {numbers} is a number string</li>
  *      <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string</li>
  *      <li>//[{delimiter1}][{delimiter2}]...\n{numbers} where {delimiter#} can have multiple characters and {numbers} is a number string</li>
  *  </ul>
@@ -145,7 +145,6 @@ const parseStringToNums = (input) => {
             const { delimiters, numberString } = parseCustomDelimiters(input);
             tokens = parseIntoTokens(numberString, delimiters);
         } catch(e) {
-            console.log(e.message);
             tokens = parseIntoTokens(input);
         }
     } else {

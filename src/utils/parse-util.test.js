@@ -45,68 +45,61 @@ describe('convertToNum', () => {
 
 
 describe('parseStringToNums', () => {
-    test('parseStringToNums - parse "1,2,3,4,5" into an array of numbers', () => {
-        expect(parseStringToNums('1,2,3,4,5')).toEqual([1,2,3,4,5]);
+    describe('non-custom strings', () => {
+        const NON_CUSTOM_STR_TEST_CASES = [
+            ['1,2,3,4,5', [1,2,3,4,5]],
+            ['1\n2\n3\n4\n5', [1,2,3,4,5]],
+            ['1\n2,3', [1,2,3]]
+        ];
+        for(const [input, output] of NON_CUSTOM_STR_TEST_CASES) {
+            test(`parseStringToNums - input: ${input} ; expected output: ${output}`, () => {
+                expect(parseStringToNums(input)).toEqual(output);;
+            });
+        }
     });
-    test('parseStringToNums - parse "1\n2\n3\n4\n5" into an array of numbers', () => {
-        expect(parseStringToNums('1\n2\n3\n4\n5')).toEqual([1,2,3,4,5]);
-    });
-    describe('single character custom delimiter', () => {
-        test('parseStringToNums - parse "//#\n2#5" into an array of numbers', () => {
-            expect(parseStringToNums('//#\n2#5')).toEqual([2,5]);
-        });
-        test('parseStringToNums - parse "//,\n1*2*3" into 0', () => {
-            expect(parseStringToNums('//,\n1*2*3')).toEqual([0]);
-        });
-        test('parseStringToNums - parse "//\n\n1\n2\n3" into an array of numbers', () => {
-            expect(parseStringToNums('//\n\n1\n2\n3')).toEqual([1,2,3]);
-        });
-        test('parseStringToNums - parse "//**\n1**2" (multicharacter not allowed) like a regular non-custom string', () => {
-            expect(parseStringToNums('//**\n1**2')).toEqual([0,0]);
-        });
-        test('parseStringToNums - parse "//\n12" (no delimiter provided) like a regular non-custom string', () => {
-            expect(parseStringToNums('//\n12')).toEqual([0,12]);
-        });
+    describe('single character custom deliminated string', () => {
+        const SINGLE_CHAR_CUSTOM_STR_TEST_CASES = [
+            ['//#\n2#5', [2,5]],
+            ['//,\n1*2*3', [0]],
+            ['//\n\n1\n2\n3', [1,2,3]],
+            ['//**\n1**2', [0,0]],
+            ['//\n12', [0,12]]
+        ];
+        for(const [input, output] of SINGLE_CHAR_CUSTOM_STR_TEST_CASES) {
+            test(`parseStringToNums - input: ${input} ; expected output: ${output}`, () => {
+                expect(parseStringToNums(input)).toEqual(output);;
+            });
+        }
     });
     describe('multicharacter custom delimiter', () => {
-        test('parseStringToNums - parse "//[***]\n11***22***33" into an array of numbers', () => {
-            expect(parseStringToNums('//[***]\n11***22***33')).toEqual([11,22,33]);
-        });
-        test('parseStringToNums - parse "//[[]]\n11[]22[]33" using inner brackets', () => {
-            expect(parseStringToNums('//[[]]\n11[]22[]33')).toEqual([11,22,33]);
-        });
-        test('parseStringToNums - parse "//[\n]\n11\n22\n33" into an array of numbers', () => {
-            expect(parseStringToNums('//[\n]\n11\n22\n33')).toEqual([11,22,33]);
-        });
-        test('parseStringToNums - parse "//[]\n123" where an empty string delimiter is ignored', () => {
-            expect(parseStringToNums('//[]\n123')).toEqual([123]);
-        });
-        test('parseStringToNums - parse "//[][\n123" (invalid brackets) like a regular non-custom string', () => {
-            expect(parseStringToNums('//[][\n123')).toEqual([0,123]);
-        });
+        const MULTI_CHAR_CUSTOM_STR_TEST_CASES = [
+            ['//[***]\n11***22***33', [11,22,33]],
+            ['//[[]]\n11[]22[]33', [11,22,33]],
+            ['//[\n]\n11\n22\n33', [11,22,33]],
+            ['//[]\n123', [123]],
+            ['//[][\n123', [0,123]]
+        ];
+        for(const [input, output] of MULTI_CHAR_CUSTOM_STR_TEST_CASES) {
+            test(`parseStringToNums - input: ${input} ; expected output: ${output}`, () => {
+                expect(parseStringToNums(input)).toEqual(output);;
+            });
+        }
     });
     describe('multiple custom delimiters', () => {
-        test('parseStringToNums - parse "//[*][!!][r9r]\n11r9r22*hh*33!!44" into an array of numbers', () => {
-            expect(parseStringToNums('//[*][!!][r9r]\n11r9r22*hh*33!!44')).toEqual([11,22,0,33,44]);
-        });
-        test('parseStringToNums - parse "//[[][]]\n1[2]3" (using delimiters [ and ] ) into an array of numbers', () => {
-            expect(parseStringToNums('//[[][]]\n1[2]3')).toEqual([1,2,3]);
-        });
-        test('parseStringToNums - parse "//[[[][]]]\n1[[2]]3" (using delimiters [[ and ]] ) into an array of numbers', () => {
-            expect(parseStringToNums('//[[[][]]]\n1[[2]]3')).toEqual([1,2,3]);
-        });
-        test('parseStringToNums - parse "//[*][\n]\n1*2\n3" into an array of numbers', () => {
-            expect(parseStringToNums('//[*][\n]\n1*2\n3')).toEqual([1,2,3]);
-        });
-        test('parseStringToNums - parse "//[]*[]\n1]*[2]*[3" (using delimiter ]*[ )into an array of numbers', () => {
-            expect(parseStringToNums('//[]*[]\n1]*[2]*[3')).toEqual([1,2,3]);
-        });
-        test('parseStringToNums - parse "//[][][]\n123" (three empty string delimiters) where each delimiter is ignored', () => {
-            expect(parseStringToNums('//[][][]\n123')).toEqual([123]);
-        });
-        test('parseStringToNums - parse "//[][][][\n123" (invalid brackets) like a regular non-custom string', () => {
-            expect(parseStringToNums('//[][][][\n123')).toEqual([0,123]);
-        });
+        const MULTI_DELIMITER_CUSTOM_STR_TEST_CASES = [
+            ['//[*][!!][r9r]\n11r9r22*hh*33!!44', [11,22,0,33,44]],
+            ['//[[][]]\n1[2]3', [1,2,3]],
+            ['//[[[][]]]\n1[[2]]3', [1,2,3]],
+            ['//[*][\n]\n1*2\n3', [1,2,3]],
+            ['//[]*[]\n1]*[2]*[3', [1,2,3]],
+            ['//[][][]\n123', [123]],
+            ['//[][][][\n123', [0,123]]
+        ];
+        for(const [input, output] of MULTI_DELIMITER_CUSTOM_STR_TEST_CASES) {
+            test(`parseStringToNums - input: ${input} ; expected output: ${output}`, () => {
+                expect(parseStringToNums(input)).toEqual(output);;
+            });
+        }
     });
 });
 
