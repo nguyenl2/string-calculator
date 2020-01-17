@@ -7,7 +7,7 @@ function App() {
   const [input, setInput] = React.useState('');
   const [output, setOutput] = React.useState('');
   const [altDelimiter, setAltDelimiter] = React.useState('\n');
-  const [allowNeg, setAllowNegChecked] = React.useState(false);
+  const [allowNeg, setAllowNeg] = React.useState(false);
   const [upperBound, setUpperBound] = React.useState(1000);
   const [error, setError] = React.useState(null);
   const handleAltDelimChange = (e) => {
@@ -19,7 +19,7 @@ function App() {
   };
   const handleNegClick = () => {
     const newAllowNeg = allowNeg === true ? false : true;
-    setAllowNegChecked(newAllowNeg);
+    setAllowNeg(newAllowNeg);
   };
   const handleUpperBndChange = (e) => {
     const newUpperBnd = e.target.value;
