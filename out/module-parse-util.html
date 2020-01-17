@@ -167,7 +167,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line42">line 42</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -351,7 +351,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line27">line 27</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -405,7 +405,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
 
     
-    <h4 class="name" id="~parseCustomDelimiter"><span class="type-signature">(inner) </span>parseCustomDelimiter<span class="signature">(input)</span><span class="type-signature"> &rarr; {<a href="module-parse-util.html#~parsedCustomDelim">module:parse-util~parsedCustomDelim</a>}</span></h4>
+    <h4 class="name" id="~parseCustomDelimiters"><span class="type-signature">(inner) </span>parseCustomDelimiters<span class="signature">(input)</span><span class="type-signature"> &rarr; {<a href="module-parse-util.html#~parsedCustomDelim">module:parse-util~parsedCustomDelim</a>}</span></h4>
     
 
     
@@ -413,7 +413,14 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
 
 
 <div class="description">
-    Takes a custom string in the format //{delimiter}\n{numbers} and parses out the delimiter and number string separately
+    Takes a custom string in the following formats
+<ul>
+     <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+     <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string <br/>
+         If the brackets are malformed (like [][), the entire input will be parsed like a non-custom string <br/>
+         If the delimiter is an empty string, it will be ignored and the number string will not be split <br/>
+     </li>
+</ul>
 </div>
 
 
@@ -506,7 +513,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line73">line 73</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -529,6 +536,35 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        if custom string cannot be parsed, an error will be thrown
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
@@ -573,6 +609,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
 
 <div class="description">
     Parses a deliminated string into tokens <br/>
+If a given delimiter is an empty string, it will be ignored
 </div>
 
 
@@ -720,7 +757,7 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line9">line 9</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -790,9 +827,14 @@ Invalid numbers such as numbers greater than 1000, empty string, floats, scienti
 Valid inputs include <br/>
 <ul>
 <li> comma and newline deliminated numbers </li> 
-<li> custom string in the format //{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+<li> custom string in the formats 
+ <ul>
+     <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+     <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string</li>
+ </ul>
+</li>
 </ul>
-If a custom string is used, the default delimiters (, and \n) will not be used to split the string
+If a custom string is used, the default delimiters (, and \n) will not be used to split the string <br/>
 </div>
 
 
@@ -885,7 +927,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line90">line 90</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -998,7 +1040,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;string></span>
 
 
             
@@ -1070,7 +1112,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line62">line 62</a>
+        <a href="parse-util.js.html">parse-util.js</a>, <a href="parse-util.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -1106,7 +1148,7 @@ If a custom string is used, the default delimiters (, and \n) will not be used t
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 16 2020 11:21:33 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 16 2020 18:08:51 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,6 +2,7 @@
 
 /**
  * Parses a deliminated string into tokens <br/>
+ * If a given delimiter is an empty string, it will be ignored
  * @param {string} input string to be parsed
  * @param {string[]} [delimiters=[',','\n']] a set of delimiters used to split the string
  * @returns {string[]} returns an array of string tokens
@@ -9,6 +10,9 @@
 const parseIntoTokens = (input, delimiters = [',' , '\n']) => {
     let tokens = [input];
     for(const delimiter of delimiters) {
+        if(delimiter === '') {
+            continue;
+        }
         const newTokens = [];
         for(const token of tokens) {
             const parts = token.split(delimiter);
@@ -41,12 +45,12 @@ const isDigit = (c) => {
  */
 const convertToNum = (token) => {
     // if string is empty, convert to 0
-    if(token === "") {
+    if(token === '') {
         return 0;
     }
     // if negative, throw error
     if(token[0] === '-') {
-        throw new Error("Negative numbers are not allowed");
+        throw new Error('Negative numbers are not allowed');
     }
     // verify the remaining chars are digits
     for(let i = 0; i < token.length; i++) {
@@ -61,18 +65,50 @@ const convertToNum = (token) => {
 
 /**
  * @typedef {Object} parsedCustomDelim
- * @property {string} delimiter delimiter use to split number string
+ * @property {string[]} delimiter delimiter use to split number string
  * @property {string} numberString number string
  */
 
 /**
- * Takes a custom string in the format //{delimiter}\n{numbers} and parses out the delimiter and number string separately
+ * Takes a custom string in the following formats
+ * <ul>
+ *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+ *      <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string <br/>
+ *          If the brackets are malformed (like [][), the entire input will be parsed like a non-custom string <br/>
+ *          If the delimiter is an empty string, it will be ignored and the number string will not be split <br/>
+ *      </li>
+ * </ul>
  * @param {string} input custom string
  * @returns {module:parse-util~parsedCustomDelim} { delimiter, numberString }
+ * @throws {Error} if custom string cannot be parsed, an error will be thrown
  */
-const parseCustomDelimiter = (input) => {
-    const delimiter = [input[2]];
-    const numberString = input.slice(4, input.length);
+const parseCustomDelimiters = (input) => {
+    let delimiter = '';
+    let numberString = '';
+    const errorMsg = 'Custom delimited string could not be parsed';
+    if(input[3] === '\n') { // single character delimiter
+        delimiter = [input[2]];
+        numberString = input.slice(4, input.length);
+    } else if(input[2] === '[') { // multi character delimiter
+        let endingNewlineIdx;
+        for( let i = input.length - 1; i >= 4; i--) { // at a minimum //[]\n, where \n is at index 4
+            if(input[i] === '\n') {
+                endingNewlineIdx = i;
+                break;
+            }
+        }
+        if(!endingNewlineIdx) {
+            throw new Error(errorMsg);
+        }
+        const endingBracketIdx = endingNewlineIdx - 1;
+        if(input[endingBracketIdx] !== ']') {
+            throw new Error(errorMsg);
+        }
+        delimiter = [input.slice(3, endingBracketIdx)];
+        numberString = input.slice(endingNewlineIdx + 1, input.length);
+    } else {
+        throw new Error(errorMsg);
+    } 
     return { delimiter, numberString };
 };
 
@@ -81,18 +117,31 @@ const parseCustomDelimiter = (input) => {
  * Valid inputs include <br/>
  * <ul>
  * <li> comma and newline deliminated numbers </li> 
- * <li> custom string in the format //{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+ * <li> custom string in the formats 
+ *  <ul>
+ *      <li>//{delimiter}\n{numbers} where {delimiter} is a single character and {numbers} is a number string</li>
+ *      <li>//[{delimiter}]\n{numbers} where {delimiter} can have multiple characters and {numbers} is a number string</li>
+ *  </ul>
+ * </li>
  * </ul>
- * If a custom string is used, the default delimiters (, and \n) will not be used to split the string
+ * If a custom string is used, the default delimiters (, and \n) will not be used to split the string <br/>
  * @param {string} input input string
  * @returns {number[]} array of parsed numbers
  */
 const parseStringToNums = (input) => {
-    if(input.startsWith('//') & input[3] === '\n') {
-        const { delimiter, numberString } = parseCustomDelimiter(input);
-        return parseIntoTokens(numberString, delimiter).map((token) => convertToNum(token));
+    let tokens;
+    if(input.startsWith('//')) {
+        try {
+            const { delimiter, numberString } = parseCustomDelimiters(input);
+            tokens = parseIntoTokens(numberString, delimiter);
+        } catch(e) {
+            console.log(e.message);
+            tokens = parseIntoTokens(input);
+        }
+    } else {
+        tokens = parseIntoTokens(input);
     }
-    return parseIntoTokens(input).map((token) => convertToNum(token));
+    return tokens.map((token) => convertToNum(token));
 };
 
 export { parseIntoTokens, convertToNum, parseStringToNums };

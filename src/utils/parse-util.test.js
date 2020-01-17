@@ -61,10 +61,28 @@ describe('parseStringToNums', () => {
         test('parseStringToNums - parse "//\n\n1\n2\n3" into an array of numbers', () => {
             expect(parseStringToNums('//\n\n1\n2\n3')).toEqual([1,2,3]);
         });
-        test('parseStringToNums - parse "//**\n1**2" like a regular non-custom string', () => {
+        test('parseStringToNums - parse "//**\n1**2" (multicharacter not allowed) like a regular non-custom string', () => {
             expect(parseStringToNums('//**\n1**2')).toEqual([0,0]);
         });
+        test('parseStringToNums - parse "//\n12" (no delimiter provided) like a regular non-custom string', () => {
+            expect(parseStringToNums('//\n12')).toEqual([0,12]);
+        });
     });
+    describe('multicharacter custom delimiter', () => {
+        test('parseStringToNums - parse "//[***]\n11***22***33" into an array of numbers', () => {
+            expect(parseStringToNums('//[***]\n11***22***33')).toEqual([11,22,33]);
+        });
+        test('parseStringToNums - parse "//[[]]\n11[]22[]33" using inner brackets', () => {
+            expect(parseStringToNums('//[[]]\n11[]22[]33')).toEqual([11,22,33]);
+        });
+        test('parseStringToNums - parse "//[]\n123" where an empty string delimiter is ignored', () => {
+            expect(parseStringToNums('//[]\n123')).toEqual([123]);
+        });
+        test('parseStringToNums - parse "//[][\n123" (invalid brackets) like a regular non-custom string', () => {
+            expect(parseStringToNums('//[][\n123')).toEqual([0,123]);
+        });
+    });
+
 });
 
 
